@@ -1,0 +1,17 @@
+{
+    "name": "99prb/clips",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yevgeniy Zaichenko",
+            "email": "99prblmsaint1@gmail.com"
+        }
+    ],
+    "require": {
+        "php-ffmpeg/php-ffmpeg": "^1.0"
+    }
+}
