@@ -13,6 +13,7 @@ class Main
     public function start()
     {
         $d = new Subs('PLAYING');
+        var_dump($d);
         return;
         $pathIn = '../storage/movie/1.mp4';
         $pathOut = 'export-x264.mp4';
