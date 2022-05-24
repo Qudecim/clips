@@ -19,10 +19,10 @@ class Movie
 
     public function __construct(string $path)
     {
-        $this->pathIn = $path;
+        $this->pathIn = dirname(__FILE__) . '/../storage/movie/' . $path;
 
         $ffmpeg = FFMpeg::create();
-        $this->video = $ffmpeg->open($path);
+        $this->video = $ffmpeg->open($this->pathIn);
     }
 
     public function cut(float $start, float $end): void
@@ -32,8 +32,8 @@ class Movie
 
     public function save(string $path): void
     {
-        $this->pathOut = $path;
-        $this->video->save(new \FFMpeg\Format\Video\X264(), $path);
+        $this->pathOut = dirname(__FILE__) . '/../storage/out/' . $path;
+        $this->video->save(new \FFMpeg\Format\Video\X264(), $this->pathOut);
     }
 
 

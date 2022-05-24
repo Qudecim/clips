@@ -12,19 +12,14 @@ class Main
 
     public function start()
     {
-        $d = new Subs('PLAYING');
-        var_dump($d);
-        return;
-        $pathIn = '../storage/movie/1.mp4';
-        $pathOut = 'export-x264.mp4';
+        $subs = new Subs('Elon Musk');
+        $items = $subs->get();
 
-        echo 1;
-        $movie = new Movie($pathIn);
-        echo 2;
-        $movie->cut(0, 5);
-        echo 3;
-        $movie->save($pathOut);
-        echo 4;
+        foreach ($items as $item) {
+            $movie = new Movie($item['filename'] . '.mkv');
+            $movie->cut($item['time']['start'], $item['time']['duration']);
+            $movie->save($item['time']['start'] . $item['filename'] . '.mp4');
+        }
     }
 
 }

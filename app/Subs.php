@@ -29,12 +29,15 @@ class Subs
 
         foreach ($lines as $index => $line) {
             if( strpos($line, $text) !== false ) {
+                $fileInfo = pathinfo($file);
                 $this->subs[] = [
-                    'dir'   => $this->dir,
-                    'file'  => $file,
-                    'line'  => $index,
-                    'text'  => $line,
-                    'time'  => $this->getTime($lines, $index)
+                    'dir'       => $this->dir,
+                    'file'      => $file,
+                    'filename'  => $fileInfo['filename'],
+                    'extension' => $fileInfo['extension'],
+                    'line'      => $index,
+                    'text'      => trim($line),
+                    'time'      => $this->getTime($lines, $index)
                 ];
             }
         }
@@ -52,25 +55,26 @@ class Subs
 
         $times = [];
         $array = explode('-->', $line);
-        for ($i = 0; $i <= 1; $i++) {
-            echo $i;
-            $times[] = $this->getSeconds(trim(str_replace(',', '.', $array[$i])));
-        }
-
-        return $times;
+        $start = $this->getSeconds(trim(str_replace(',', '.', $array[0])));
+        $end =  $this->getSeconds(trim(str_replace(',', '.', $array[1])));
+        return [
+            'start' => $start,
+            'end' => $end,
+            'duration' => round($end - $start, 3)
+        ];
     }
 
-    public function getSeconds(string $str): int
+    public function getSeconds(string $str): float
     {
         $seconds = 0;
         $times = explode(':', $str);
-        for ($i = 0; $i <= 2; $i++) {
-            $seconds += floatval($times[$i]);
-        }
-
-        return $seconds;
+        return (floatval($times[0] * 3600)) + (floatval($times[1] * 60)) + floatval($times[2]);
     }
 
+    public function get()
+    {
+        return $this->subs;
+    }
 
     public function count()
     {
