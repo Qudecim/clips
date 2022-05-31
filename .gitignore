@@ -4,6 +4,7 @@
 /storage/movie/*
 /storage/out/*
 /storage/fonts/*
+/storage/*
 /vendor
 /.idea
 Homestead.json
