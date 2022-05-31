@@ -18,6 +18,8 @@ class Main
         foreach ($items as $item) {
             $movie = new Movie($item['filename'] . '.mkv');
             $movie->cut($item['time']['start'], $item['time']['duration']);
+            $movie->drawRect();
+            $movie->drawText($item['text']);
             $movie->save($item['time']['start'] . $item['filename'] . '.mp4');
         }
     }

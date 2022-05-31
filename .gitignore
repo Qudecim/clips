@@ -2,6 +2,8 @@
 /public/storage
 /storage/sub/*
 /storage/movie/*
+/storage/out/*
+/storage/fonts/*
 /vendor
 /.idea
 Homestead.json
