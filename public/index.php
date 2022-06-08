@@ -2,6 +2,10 @@
 
 require '../vendor/autoload.php';
 
+define("MOVIES_DIR","D:/clips_new/movies/");
+define("SUBS_DIR","D:/clips_new/subs/");
+define("OUT_DIR","D:/clips_new/out/");
+
 $o = new App\Commands\Main();
 $o->start();
 

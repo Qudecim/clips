@@ -14,7 +14,8 @@ class Movie
     private string $pathIn = '';
     private string $pathOut = '';
 
-    private float $timeOffset = 0.5;
+    private float $timeOffsetL = 0.5;
+    private float $timeOffsetR = 0.5;
     private string $boxColor = 'color=#333333@0.6';
 
     private Video $video;
@@ -22,7 +23,7 @@ class Movie
 
     public function __construct(string $path)
     {
-        $this->pathIn = dirname(__FILE__) . '/../storage/movie/' . $path;
+        $this->pathIn = MOVIES_DIR . $path;
 
         $ffmpeg = FFMpeg::create();
         $this->video = $ffmpeg->open($this->pathIn);
@@ -30,7 +31,7 @@ class Movie
 
     public function cut(float $start, float $end): void
     {
-        $this->video = $this->video->clip(TimeCode::fromSeconds($start - $this->timeOffset), TimeCode::fromSeconds($end + $this->timeOffset));
+        $this->video = $this->video->clip(TimeCode::fromSeconds($start - $this->timeOffsetL), TimeCode::fromSeconds($end + $this->timeOffsetR));
     }
 
     public function drawText(string $text): void
@@ -69,8 +70,14 @@ class Movie
 
     public function save(string $path): void
     {
-        $this->pathOut = dirname(__FILE__) . '/../storage/out/' . $path;
+        $this->pathOut = OUT_DIR . $path;
         $this->video->save(new \FFMpeg\Format\Video\X264(), $this->pathOut);
+    }
+
+    public function setOffset(float $start, float $end)
+    {
+        $this->timeOffsetL = $start;
+        $this->timeOffsetR = $end;
     }
 
 

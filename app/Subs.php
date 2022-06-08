@@ -13,7 +13,7 @@ class Subs
 
     public function __construct(string $text)
     {
-        $this->dir = dirname(__FILE__) . '/../storage/sub/';
+        $this->dir = SUBS_DIR;
 
         $this->files = array_diff(scandir($this->dir), array('..', '.'));
 
